@@ -1,11 +1,11 @@
 // collections
 var Song = Backbone.Model.extend();
 
-var Songs =. Backbone.Collection.extend({
-	model. Song
+var Songs = Backbone.Collection.extend({
+	model: Song
 });
 
-var songs = mew Spmgs([
+var songs = new Songs([
 		new Song({ title: "Song1"}),
 		new Song({ title: "Song2"}),
 		new Song({ title: "Song2"})
