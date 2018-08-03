@@ -1,23 +1,9 @@
-// create a model and instantiate
-/*
+// create model with validation
 var Song = Backbone.Model.extend({
-	intialize: function(){
-		console.log("A new song has been created.")
-	}
-});
-*/
-
-// create a model with default genre
-var Song = Backbone.Model.extend({
-	defaults: {
-        genre: "Jazz"
+	validate: function(attrs){
+		if(!attrs.title)
+			return "Title is required";
 	}
 });
 
-// create an instance of Song model
-var song = new Song({
-	title: "Blue in Green",
-	artist: "Miles Davis",
-	pulishYear: 1959
-});
-
+var song =  new Song();
