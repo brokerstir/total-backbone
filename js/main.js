@@ -7,7 +7,11 @@ var Animal = Backbone.Model.extend({
 });
 
 // inherit from Animal model
-var Dog = Animal.extend();
+var Dog = Animal.extend({
+	walk: function(){
+		console.log("Dog walking...")
+	}
+});
 
 var dog = new Dog();
 
