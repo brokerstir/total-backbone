@@ -1,9 +1,14 @@
-// create model with validation
-var Song = Backbone.Model.extend({
-	validate: function(attrs){
-		if(!attrs.title)
-			return "Title is required";
+// create model with method
+var Animal = Backbone.Model.extend({
+	walk: function(){
+		console.log("Animal walking...")
 	}
+
 });
 
-var song =  new Song();
+// inherit from Animal model
+var Dog = Animal.extend();
+
+var dog = new Dog();
+
+dog.walk();
