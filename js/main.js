@@ -1,49 +1,26 @@
-// collections project
-var Vehicle = Backbone.Model.extend({
+// create view class
+var SongView = Backbone.View.extend({
 
-	//urlRoot: “/api/vehicles”,
+	tagName: "span",
+	className: "song",
+	id: "1234",
 
-	idAttribute: "registrationNumber",
+	attributes: {
+		"data-genre": "Jazz"
+	},
 
-	validate: function(attrs){
-		if(!attrs.registrationNumber)
-			return "Registrations is required is required";
-	}, // end validate
+	render: function(){
+		this.$el.html("Hello World");
+		return this;
+	}
 
-	start: function(){
-		console.log("Vehicle started.")	
-	}		
-
-}); // end model class	
-
-var Vehicles = Backbone.Collection.extend({
-	model: Vehicle
 });
 
-var vehicles = new Vehicles([
-
-	new Vehicle({ registrationNumber: "XLI887", color: "Blue"}),
-	new Vehicle({ registrationNumber: "ZNP123", color: "Blue"}),
-	new Vehicle({ registrationNumber: "XUV456", color: "Gray"})
+// create instance of view and tell where to render in the DOM
+var songView = new SongView();
 
 
-]);
+//songView.render();
+//$("#container").html(songView.$el);
 
-
-var blueVehicles = vehicles.where({ color: "Blue" });
-
-console.log("Blue Vehicles", blueVehicles);
-
-
-var theVehicle = vehicles.filter(function(vehicle){
-	return vehicle.get("registrationNumber") == "XLI887";
- })
-
-console.log("The Vehicle", theVehicle)
-
-vehicles.remove(theVehicle);
-
-vehicles.each(function(vehicle){
-	console.log(vehicle)
-});
-
+$("#container").html(songView.render().$el);
