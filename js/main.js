@@ -1,37 +1,49 @@
-// collections
-var Song = Backbone.Model.extend();
+// collections project
+var Vehicle = Backbone.Model.extend({
 
-var Songs = Backbone.Collection.extend({
-	model: Song
+	//urlRoot: “/api/vehicles”,
+
+	idAttribute: "registrationNumber",
+
+	validate: function(attrs){
+		if(!attrs.registrationNumber)
+			return "Registrations is required is required";
+	}, // end validate
+
+	start: function(){
+		console.log("Vehicle started.")	
+	}		
+
+}); // end model class	
+
+var Vehicles = Backbone.Collection.extend({
+	model: Vehicle
 });
 
-var songs = new Songs()
+var vehicles = new Vehicles([
 
-// specify at what index to add song to collection
-songs.add(new Song({ title: "Song 1", genre : "Jazz", downloads: 110}), { at: 0});
-
-// push methode does not allow to specify index
-songs.push(new Song({ title: "Song 2", genre : "Jazz", downloads: 90}));
-
-// where returns array
-var jazzSongs = songs.where({ genre: "Jazz" });
-
-// find where returns first instance
-var firstJazzSong = songs.findWhere({ genre: "Jazz"});
-
-console.log("Jazz Songs", jazzSongs);
-
-console.log("First Jazz Song", firstJazzSong);
+	new Vehicle({ registrationNumber: "XLI887", color: "Blue"}),
+	new Vehicle({ registrationNumber: "ZNP123", color: "Blue"}),
+	new Vehicle({ registrationNumber: "XUV456", color: "Gray"})
 
 
-var filteredSongs = songs.where({ genre: "Jazz", title: "Song 2"});
-console.log("Filtered Songs", filteredSongs);
+]);
 
-var topDownloads = songs.filter(function(song){
-	return song.get("downloads") > 100;
+
+var blueVehicles = vehicles.where({ color: "Blue" });
+
+console.log("Blue Vehicles", blueVehicles);
+
+
+var theVehicle = vehicles.filter(function(vehicle){
+	return vehicle.get("registrationNumber") == "XLI887";
  })
-console.log("Top Downlads", topDownloads)
 
-songs.each(function(song){
-	console.log(song);
+console.log("The Vehicle", theVehicle)
+
+vehicles.remove(theVehicle);
+
+vehicles.each(function(vehicle){
+	console.log(vehicle)
 });
+
