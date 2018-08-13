@@ -1,23 +1,23 @@
-var Song = Backbone.Model.extend();
+var person = {
+	name: "Mosh",
 
-/////////////////////////////
-// create view class
-var SongView = Backbone.View.extend({
-	
-	render: function(){
-		var template = _.template($("#songTemplate").html());
-		var html = template(this.model.toJSON());
-		this.$el.html(html);
-		return this;
+	walk: function(){
+		this.trigger("walking", {
+			speed: 1,
+			startTime: "08:00"
+		});
 	}
+};
 
+_.extend(person, Backbone.Events);
+
+person.once("walking", function(e){
+	console.log("Person is walking");
+	console.log("Event Args", e);
 });
 
-//////////////////////////////////
+//unsubscribe
+//person.off("walking")
 
-
-var song = new Song({ title: "Blue in Green", plays: 1100});
-	
-
-var songView = new SongView({ el: "#container", model: song});
-songView.render();
+person.walk();
+person.walk();
