@@ -11,15 +11,21 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/styles.css">
 
+        <style type="text/css">
+            #nav ul li { cursor: pointer; color: blue; }
+        </style>
+
         <script src="js/lib/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <div id="container">
-            <div id="venues-container"></div>
-            <div id="map-container">
-                <span id="venue-name"></span>
-            </div>
-        </div>
+        <nav id="nav">
+            <ul>
+                <li data-url="albums">Albums</li>
+                <li data-url="artists">Artists</li>
+                <li data-url="genres">Genres</li>
+            </ul>    
+        </nav>
+        <div id="container"></div>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
