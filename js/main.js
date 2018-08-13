@@ -1,29 +1,75 @@
-var person = {
-	name: "Mosh",
+var Song = Backbone.Model.extend();
 
-	walk: function(){
-		this.trigger("walking", {
-			speed: 1,
-			startTime: "08:00"
-		});
-	}
-};
-
-// extend object with events capability
-_.extend(person, Backbone.Events);
-
-person.on("walking", function(e){
-	console.log("Person is walking");
-	console.log("Event Args", e);
+var Songs =  Backbone.Collection.extend({
+	model: Song
 });
 
-
-// unsubscribe from event
-//person.off("walking");
-
-
-
-person.walk();
-person.walk();
+/////////////////////////////
+// create view class
+var SongView = Backbone.View.extend({
+	tagName: "li",
 
 
+	render: function(){
+		this.$el.html(this.model.get("title") + " <button class='delete'>Delete</button>");
+		this.$el.attr("id", this.model.id);
+		return this;
+	}
+
+});
+
+//////////////////////////////////
+
+var SongsView = Backbone.View.extend({
+	tagName: "ul",
+
+	events: {
+		"click.delete": "onClick",
+		//"click .bookmark": "onClickBookmark",
+	},
+
+	initialize: function(){
+		// register handler for add event
+		this.model.on("add", this.onSongAdded, this);
+		this.model.on("remove", this.onSongRemoved, this);
+		//this.model.on("remove", this.onClick, this);
+	},
+
+	onClick: function(song){
+		console.log("Delete Clicked");
+		this.remove();
+		//this.$("li#" + song.id).remove();
+	},
+
+	onSongAdded: function(song){
+		var songView = new SongView({ model: song});
+		this.$el.append(songView.render().$el);
+	},
+
+	onSongRemoved: function(song){
+		//this.$el.find("li#" + song.id).remove();
+		this.$("li#" + song.id).remove();
+		console.log("Song removed");
+	},
+
+	render: function(){
+		var self = this;
+		this.model.each(function(song){
+			var songView = new SongView({model: song});
+			self.$el.append(songView.render().$el);
+
+		});
+	}
+});
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+
+var songs = new Songs([
+	new Song({ id: 1, title: "Blue in Green"}),
+	new Song({ id: 2, title: "So What"}),
+	new Song({ id: 3, title: "All Blues"})
+]);
+
+var songsView = new SongsView({ el: "#songs", model: songs});
+songsView.render()
