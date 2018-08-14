@@ -22,9 +22,15 @@ var TodoItemsView = Backbone.View.extend({
 	},
 
 	onClickAdd: function(){
+
+		var $textBox = this.$('#newTodoItem');
+
 		//console.log("Clicked");
-		var todoItem = new TodoItem({ description: this.$("#newTodoItem").val() });
+		var todoItem = new TodoItem({ description: $textBox.val() });
 		this.model.add(todoItem);
+
+		$textBox.val("");
+
 	},
 
 	render: function(){
