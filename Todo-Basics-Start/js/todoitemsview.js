@@ -18,7 +18,14 @@ var TodoItemsView = Backbone.View.extend({
 	},
 
 	events: {
-		"click #add": "onClickAdd"
+		"click #add": "onClickAdd",
+		"keypress #newTodoItem": "onKeyPress"
+	},
+
+	onKeyPress: function(e){
+		if (e.keyCode == 13)
+			this.onClickAdd();
+			//console.log("Enter pressed")
 	},
 
 	onClickAdd: function(){
@@ -26,10 +33,14 @@ var TodoItemsView = Backbone.View.extend({
 		var $textBox = this.$('#newTodoItem');
 
 		//console.log("Clicked");
-		var todoItem = new TodoItem({ description: $textBox.val() });
-		this.model.add(todoItem);
 
-		$textBox.val("");
+		if ($textBox.val()){
+			var todoItem = new TodoItem({ description: $textBox.val() });
+			this.model.add(todoItem);
+
+			$textBox.val("");
+		}
+		
 
 	},
 
@@ -37,7 +48,7 @@ var TodoItemsView = Backbone.View.extend({
 
 		var self = this;
 
-		this.$el.append("<input type='text' id='newTodoItem'></input>");
+		this.$el.append("<input type='text' autofocus id='newTodoItem'></input>");
 		this.$el.append("<button id='add'>Add</button>");
 
 		this.model.each(function(todoItem){
