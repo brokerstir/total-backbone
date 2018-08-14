@@ -3,9 +3,14 @@
 // files and modules.
 $(document).ready(function(){
 	
-	var todoItem = new TodoItem({ description: "TodoItem 1" });
+	var todoItems = new TodoItems([
 
-	var todoItemView = new TodoItemView({ model: todoItem });
-	$("body").append(todoItemView.render().$el);
+		new TodoItem({ description: "TodoItem 1" }),
+		new TodoItem({ description: "TodoItem 2" })
+
+	]);
+
+	var todoItemsView = new TodoItemsView({ model: todoItems });
+	$("body").append(todoItemsView.render().$el);
 
 });
