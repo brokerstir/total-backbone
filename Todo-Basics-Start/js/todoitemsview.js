@@ -8,15 +8,24 @@ var TodoItemsView = Backbone.View.extend({
 		if (!(options && options.model))
 			throw new Error("model is not specified.");
 
+		//subscribe to add and remove events
 		this.model.on("add", this.onAddTodoItem, this);
+		this.model.on("remove", this.onRemoveTodoItem, this)
 	},
 
+	onRemoveTodoItem: function(todoItem){
+		//console.log("Removed", todoItem);
+		this.$("li#" + todoItem.id).remove();
+	},
+
+	// add item to list
 	onAddTodoItem: function(todoItem){
 		//console.log("Added");
 		var view = new TodoItemView({ model: todoItem });
 		this.$el.append(view.render().$el);
 	},
 
+	// event handlers for click on add button and keypress for input box
 	events: {
 		"click #add": "onClickAdd",
 		"keypress #newTodoItem": "onKeyPress"
@@ -44,6 +53,7 @@ var TodoItemsView = Backbone.View.extend({
 
 	},
 
+	// render list of todo items
 	render: function(){
 
 		var self = this;
