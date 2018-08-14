@@ -1,23 +1,12 @@
-var person = {
-	name: "Mosh",
-
-	walk: function(){
-		this.trigger("walking", {
-			speed: 1,
-			startTime: "08:00"
-		});
+require.config({
+	paths: {
+		jquery: 'lib/jquery-min',
+		underscore: 'lib/underscore-min',
+		backbone: 'lib/backbone-min'
 	}
-};
-
-_.extend(person, Backbone.Events);
-
-person.once("walking", function(e){
-	console.log("Person is walking");
-	console.log("Event Args", e);
 });
 
-//unsubscribe
-//person.off("walking")
+define(['app'], function(App){
+	App.initialize();
 
-person.walk();
-person.walk();
+});
