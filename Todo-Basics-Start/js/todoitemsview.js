@@ -44,7 +44,7 @@ var TodoItemsView = Backbone.View.extend({
 		//console.log("Clicked");
 
 		if ($textBox.val()){
-			var todoItem = new TodoItem({ description: $textBox.val() });
+			var todoItem = new TodoItem({ title: $textBox.val() });
 			this.model.add(todoItem);
 
 			$textBox.val("");
